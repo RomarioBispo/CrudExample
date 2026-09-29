@@ -15,7 +15,7 @@ public class ListPersonUseCaseImpl implements ListPersonUseCase {
     private final PersonGateway gateway;
 
     @Override
-    public List<Person> execute() {
-        return gateway.list();
+    public List<Person> execute(int page, int size) {
+        return gateway.list(page, size);
     }
 }

@@ -18,8 +18,8 @@ public class PersonGatewayImpl implements PersonGateway {
     private final PersonMapper personMapper;
 
     @Override
-    public List<Person> list() {
-        Pageable pageable = PageRequest.of(0, 10);
+    public List<Person> list(int page, int size) {
+        Pageable pageable = PageRequest.of(page-1, size);
          var persons = repository.findAll(pageable);
          return personMapper.toPersonList(persons.getContent());
     }

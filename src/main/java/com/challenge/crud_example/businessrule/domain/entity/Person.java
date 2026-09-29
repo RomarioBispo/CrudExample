@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person {
+    private String id;
     private String name;
     private LocalDate birthDate;
     private String cpf;
