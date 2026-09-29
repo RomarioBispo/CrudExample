@@ -15,4 +15,5 @@ public class Person {
     private String name;
     private LocalDate birthDate;
     private String cpf;
+    private String email;
 }

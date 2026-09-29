@@ -13,5 +13,6 @@ public class PersonResponse {
     private String name;
     private LocalDate birthDate;
     private String cpf;
+    private String email;
     private PageMetaData meta;
 }
