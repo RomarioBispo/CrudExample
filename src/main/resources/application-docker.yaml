@@ -1,9 +1,0 @@
-spring:
-  docker:
-     compose:
-       enabled: true
-       file: composea.yaml
-  datasource:
-    url:  ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/demo}
-    username: ${JDBC_DATABASE_USERNAME:postgres}
-    password: ${JDBC_DATABASE_PASSWORD:example}
