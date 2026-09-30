@@ -15,7 +15,6 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -59,7 +58,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
+        ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
@@ -67,7 +66,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
-                errors.values().stream().collect(Collectors.joining()),
+                String.join("", errors.values()),
                 HttpStatus.BAD_REQUEST
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);

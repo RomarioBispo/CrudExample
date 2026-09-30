@@ -7,10 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(
-        name = "idempotency_keys",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "key")
-        }
+        name = "idempotency_keys"
 )
 @Getter
 @Setter

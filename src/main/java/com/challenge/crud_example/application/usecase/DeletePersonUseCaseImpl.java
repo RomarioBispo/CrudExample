@@ -1,9 +1,7 @@
 package com.challenge.crud_example.application.usecase;
 
-import com.challenge.crud_example.businessrule.domain.entity.Person;
 import com.challenge.crud_example.businessrule.gateway.PersonGateway;
 import com.challenge.crud_example.businessrule.usecase.DeletePersonUseCase;
-import com.challenge.crud_example.businessrule.usecase.UpdatePersonUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

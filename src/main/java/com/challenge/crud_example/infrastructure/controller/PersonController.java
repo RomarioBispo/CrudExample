@@ -43,8 +43,7 @@ public class PersonController {
 
         Link link = linkTo(methodOn(PersonController.class)
                 .list(page, size)).withSelfRel();
-        CollectionModel<PersonResponse> result = CollectionModel.of(personList, link);
-        return result;
+        return CollectionModel.of(personList, link);
     }
 
     @GetMapping(value = "/{id}")
