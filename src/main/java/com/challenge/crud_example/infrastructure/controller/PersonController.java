@@ -12,8 +12,6 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -30,7 +28,6 @@ public class PersonController {
     private final IdempotencyValidator idempotencyValidator;
     private final SaveIdempotencyKeyUseCase idempotencyKeyUseCase;
 
-    //TODO: convert personresponse to record
     //TODO: ADD LOGBACK WITH LOGGING PATTERN
     //TODO: improve data validation
     //TODO: add consuming a queue or kafka?
