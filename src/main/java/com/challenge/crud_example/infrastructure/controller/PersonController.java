@@ -31,8 +31,6 @@ public class PersonController {
     private final IdempotencyValidator idempotencyValidator;
     private final SaveIdempotencyKeyUseCase idempotencyKeyUseCase;
 
-    //TODO: improve data validation
-    //TODO: add consuming a queue or kafka?
     @GetMapping
     public CollectionModel<PersonResponse> list(@RequestParam("page") int page,
                                                      @RequestParam("size") int size){
@@ -54,7 +52,6 @@ public class PersonController {
         return personMapper.toPersonResponse(findPersonByIdUseCase.execute(id));
     }
 
-    //TODO: add validation composition pattern
     @PostMapping
     public ResponseEntity<Person> create( @RequestHeader("Idempotency-Key") String key,
                          @Valid @RequestBody PersonRequest personRequest){
