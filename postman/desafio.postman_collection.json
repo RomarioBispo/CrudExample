@@ -1,0 +1,213 @@
+{
+  "info": {
+    "_postman_id": "8e5b59f7-00ed-4ea2-8a0c-7197d18a82d9",
+    "name": "desafio",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58618259",
+    "_collection_link": "https://go.postman.co/collection/58618259-8e5b59f7-00ed-4ea2-8a0c-7197d18a82d9?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "List All",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/persons/v1/persons?page=1&size=10",
+          "host": [
+            "{{HOST}}"
+          ],
+          "path": [
+            "persons",
+            "v1",
+            "persons"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find By Id",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/persons/v1/persons/:id",
+          "host": [
+            "{{HOST}}"
+          ],
+          "path": [
+            "persons",
+            "v1",
+            "persons",
+            ":id"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1",
+              "disabled": true
+            }
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find By Id Copy",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"birthDate\": \"1990-05-16\",\r\n    \"cpf\": \"12345678900\",\r\n    \"email\": \"joao.silva@email.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/persons/v1/persons/:id",
+          "host": [
+            "{{HOST}}"
+          ],
+          "path": [
+            "persons",
+            "v1",
+            "persons",
+            ":id"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1",
+              "disabled": true
+            }
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "219cf35d-92f7-4a39-a72f-0f02cdb07479"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "idempotency-key",
+            "value": "12345"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"João da Silva\",\r\n    \"birthDate\": \"1990-05-15\",\r\n    \"cpf\": \"12345678900\",\r\n    \"email\": \"joao.silva@email.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/persons/v1/persons",
+          "host": [
+            "{{HOST}}"
+          ],
+          "path": [
+            "persons",
+            "v1",
+            "persons"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create Copy",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/persons/v1/persons",
+          "host": [
+            "{{HOST}}"
+          ],
+          "path": [
+            "persons",
+            "v1",
+            "persons"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "1",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "DEV",
+      "value": ""
+    }
+  ]
+}
