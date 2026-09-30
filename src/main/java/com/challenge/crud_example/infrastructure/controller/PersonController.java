@@ -6,6 +6,7 @@ import com.challenge.crud_example.infrastructure.controller.request.PersonReques
 import com.challenge.crud_example.infrastructure.controller.response.PersonResponse;
 import com.challenge.crud_example.infrastructure.mapper.PersonMapper;
 import com.challenge.crud_example.infrastructure.validator.IdempotencyValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.CollectionModel;
@@ -56,7 +57,7 @@ public class PersonController {
     //TODO: add validation composition pattern
     @PostMapping
     public ResponseEntity<Person> create( @RequestHeader("Idempotency-Key") String key,
-                          @RequestBody PersonRequest personRequest){
+                         @Valid @RequestBody PersonRequest personRequest){
 
         boolean existsIdempotency = idempotencyValidator.execute(key);
         if(existsIdempotency) {
@@ -82,7 +83,7 @@ public class PersonController {
     @PutMapping(value = "/{id}")
     public Person update( @RequestHeader("Idempotency-Key") String key,
                           @PathVariable String id,
-                          @RequestBody PersonRequest personRequest){
+                          @Valid @RequestBody PersonRequest personRequest){
         return updatePersonUseCase.execute(id, personMapper.fromPersonRequest(personRequest));
     }
 
