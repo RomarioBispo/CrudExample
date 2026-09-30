@@ -7,3 +7,12 @@ CREATE TABLE IF NOT EXISTS person (
                                      "email" TEXT,
                                      PRIMARY KEY ("id")
     );
+
+
+-- CreateTable
+CREATE TABLE IF NOT EXISTS idempotency_keys (
+                                                "key" TEXT NOT NULL,
+                                                "endpoint" TEXT NOT NULL,
+                                                "created_at" DATE NOT NULL,
+                                                "request_hash" TEXT NOT NULL
+);

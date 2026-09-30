@@ -5,11 +5,14 @@ import com.challenge.crud_example.businessrule.usecase.*;
 import com.challenge.crud_example.infrastructure.controller.request.PersonRequest;
 import com.challenge.crud_example.infrastructure.controller.response.PersonResponse;
 import com.challenge.crud_example.infrastructure.mapper.PersonMapper;
+import com.challenge.crud_example.infrastructure.validator.IdempotencyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -24,10 +27,11 @@ public class PersonController {
     private final CreatePersonUseCase createPersonUseCase;
     private final UpdatePersonUseCase updatePersonUseCase;
     private final DeletePersonUseCase deletePersonUseCase;
+    private final IdempotencyValidator idempotencyValidator;
+    private final SaveIdempotencyKeyUseCase idempotencyKeyUseCase;
 
     //TODO: convert personresponse to record
     //TODO: ADD LOGBACK WITH LOGGING PATTERN
-    //TODO: add idempotency validation?
     //TODO: improve data validation
     //TODO: add consuming a queue or kafka?
     @GetMapping
@@ -53,12 +57,32 @@ public class PersonController {
 
     //TODO: add validation composition pattern
     @PostMapping
-    public Person create(@RequestBody PersonRequest personRequest){
-        return createPersonUseCase.execute(personMapper.fromPersonRequest(personRequest));
+    public ResponseEntity<Person> create( @RequestHeader("Idempotency-Key") String key,
+                          @RequestBody PersonRequest personRequest){
+
+        boolean existsIdempotency = idempotencyValidator.execute(key);
+        if(existsIdempotency) {
+            return ResponseEntity
+                    .noContent()
+                    .build();
+        }
+
+        Person person = createPersonUseCase.execute(personMapper.fromPersonRequest(personRequest));
+
+        idempotencyKeyUseCase.execute(key, personRequest.hashCode(),
+                linkTo(methodOn(PersonController.class)
+                        .create(key, personRequest)).withSelfRel().getHref());
+
+        return ResponseEntity
+                .created(linkTo(methodOn(PersonController.class)
+                        .findById(person.getId())).withSelfRel().toUri())
+                .body(person);
     }
 
     @PutMapping(value = "/{id}")
-    public Person update(@PathVariable String id, @RequestBody PersonRequest personRequest){
+    public Person update( @RequestHeader("Idempotency-Key") String key,
+                          @PathVariable String id,
+                          @RequestBody PersonRequest personRequest){
         return updatePersonUseCase.execute(id, personMapper.fromPersonRequest(personRequest));
     }
 
