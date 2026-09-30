@@ -26,11 +26,10 @@ public class PersonController {
     private final DeletePersonUseCase deletePersonUseCase;
 
     //TODO: convert personresponse to record
-    //TODO: ADD GLOBAL EXCEPTION HANDLER
-    //TODO: ADD CUSTOM EXCEPTIONS
     //TODO: ADD LOGBACK WITH LOGGING PATTERN
     //TODO: add idempotency validation?
     //TODO: improve data validation
+    //TODO: add consuming a queue or kafka?
     @GetMapping
     public CollectionModel<PersonResponse> list(@RequestParam("page") int page,
                                                      @RequestParam("size") int size){

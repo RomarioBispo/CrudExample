@@ -2,6 +2,7 @@ package com.challenge.crud_example.infrastructure.gateway;
 
 import com.challenge.crud_example.businessrule.domain.entity.Person;
 import com.challenge.crud_example.businessrule.gateway.PersonGateway;
+import com.challenge.crud_example.infrastructure.exception.ResourceNotFoundException;
 import com.challenge.crud_example.infrastructure.mapper.PersonMapper;
 import com.challenge.crud_example.infrastructure.repository.PersonRepository;
 import com.challenge.crud_example.infrastructure.repository.entity.PersonEntity;
@@ -32,7 +33,7 @@ public class PersonGatewayImpl implements PersonGateway {
         if(personEntity.isPresent()){
             return personMapper.toPerson(personEntity.get());
         }
-        throw new RuntimeException("Not Found");
+        throw new ResourceNotFoundException("Resource Not Found");
     }
 
     @Override
