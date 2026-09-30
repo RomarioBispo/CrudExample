@@ -7,6 +7,7 @@ import com.challenge.crud_example.infrastructure.mapper.PersonMapper;
 import com.challenge.crud_example.infrastructure.repository.PersonRepository;
 import com.challenge.crud_example.infrastructure.repository.entity.PersonEntity;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class PersonGatewayImpl implements PersonGateway {
     private final PersonRepository repository;
     private final PersonMapper personMapper;
@@ -33,6 +35,7 @@ public class PersonGatewayImpl implements PersonGateway {
         if(personEntity.isPresent()){
             return personMapper.toPerson(personEntity.get());
         }
+        log.debug("resource not found, {}", id);
         throw new ResourceNotFoundException("Resource Not Found");
     }
 

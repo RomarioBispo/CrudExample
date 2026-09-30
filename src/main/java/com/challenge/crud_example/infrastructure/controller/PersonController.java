@@ -7,6 +7,7 @@ import com.challenge.crud_example.infrastructure.controller.response.PersonRespo
 import com.challenge.crud_example.infrastructure.mapper.PersonMapper;
 import com.challenge.crud_example.infrastructure.validator.IdempotencyValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/persons/v1/persons")
 @RequiredArgsConstructor
+@Slf4j
 public class PersonController {
     private final PersonMapper personMapper;
     private final ListPersonUseCase listPersonUseCase;
@@ -28,7 +30,6 @@ public class PersonController {
     private final IdempotencyValidator idempotencyValidator;
     private final SaveIdempotencyKeyUseCase idempotencyKeyUseCase;
 
-    //TODO: ADD LOGBACK WITH LOGGING PATTERN
     //TODO: improve data validation
     //TODO: add consuming a queue or kafka?
     @GetMapping
@@ -59,6 +60,8 @@ public class PersonController {
 
         boolean existsIdempotency = idempotencyValidator.execute(key);
         if(existsIdempotency) {
+            log.debug("idempotency-key already used, duplicated request detected: {}", key);
+
             return ResponseEntity
                     .noContent()
                     .build();
