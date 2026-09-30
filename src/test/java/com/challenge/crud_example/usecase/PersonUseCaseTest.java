@@ -14,8 +14,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PersonUseCaseTest {
@@ -67,6 +66,6 @@ class PersonUseCaseTest {
         Person result = createPersonUseCase.execute(mockPerson);
 
         assertEquals("NAME", result.getName());
-        verify(personGateway).findById(id);
+        verify(personGateway).create(mockPerson);
     }
 }
